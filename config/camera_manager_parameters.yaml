@@ -1,0 +1,2 @@
+camera_manager_parameters:
+  camera_names: ["imx219_config_2"]

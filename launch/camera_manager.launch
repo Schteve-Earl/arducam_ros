@@ -1,0 +1,4 @@
+<launch>
+    <rosparam file="$(find arducam_ros)/config/camera_manager_parameters.yaml" command="load"/>
+    <node pkg="arducam_ros" type="arducam_camera_manager.py" name="camera_manager_node" output="screen"/>
+</launch>
