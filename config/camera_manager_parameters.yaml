@@ -1,2 +1,4 @@
 camera_manager_parameters:
-  camera_names: ["imx219_config_2"]
+  camera_names: ["imx298_top", "imx298_side"]
+  top_camera_name: "imx298_top"
+  label_camera_name: "imx298_label"
