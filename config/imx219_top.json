@@ -1,6 +1,6 @@
 {
-    "name": "IMX298",
-    "id": 4,
+    "name": "IMX219",
+    "id": 3,
     "resolution": {
         "width": 640,
         "height": 480
@@ -15,7 +15,7 @@
     },
     "flip": true,
     "format": "MJPG",
-    "fps": 10
+    "fps": 10,
     "properties":{
         "brightness":{ 
             "randomize": false,
