@@ -56,8 +56,11 @@ class Camera():
         format = self.config['format']
         w = self.config['resolution']['width']
         h = self.config['resolution']['height']
-        # cmd="v4l2-ctl -d {} -set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(w,h,format,fps, id)
-        cmd="v4l2-ctl --set-parm={} -d {} ".format(fps, id)
+        # cmd="v4l2-ctl -d {} --set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
+        # cmd="v4l2-ctl -d {} pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
+        
+        cmd="v4l2-ctl --device /dev/video2 --set-fmt-video=width=640,height=480,pixelformat=MJPG"
+        # cmd="v4l2-ctl --set-parm={} -d {} ".format(fps, id)
         subprocess.call(cmd, shell=True)
 
     def crop_frame(self, img):
@@ -95,7 +98,6 @@ class Camera():
     def set_cap_prop(self, prop, value):
         if prop:
             return self.cap.set(eval("cv2.{}".format(prop)), value)
-        
         
     def check_randomize_values(self, prop_name, prop):
         dtype = prop['dtype']
@@ -172,8 +174,9 @@ class Camera():
             properties[prop] = self.properties[prop]['value']
         return properties
 
-
-        
-
+if __name__ == "__main__":
+    
+    c = Camera('/home/stephen/manual_data_collector_ws/src/arducam_ros/config/imx219_top.json')
+    cv2.imwrite('image.png', c.read())
 
 

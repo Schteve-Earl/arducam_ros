@@ -1,0 +1,3 @@
+int8 image_requests
+---
+sensor_msgs/Image[] images

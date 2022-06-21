@@ -15,7 +15,7 @@
     },
     "flip": true,
     "format": "MJPG",
-    "fps": 10
+    "fps": 10,
     "properties":{
         "brightness":{ 
             "randomize": false,

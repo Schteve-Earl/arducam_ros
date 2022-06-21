@@ -1,6 +1,6 @@
 {
     "name": "IMX219",
-    "id": 3,
+    "id": 2,
     "resolution": {
         "width": 640,
         "height": 480
