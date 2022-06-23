@@ -12,7 +12,7 @@ class CameraManagerNode():
         
         self.get_parameters()
         self.create_publishers()
-        self.create_service_clients()
+        self.create_service_servers()
         
     def get_parameters(self):
         self.camera_names_list = rospy.get_param("/camera_manager_parameters/camera_names")
@@ -23,7 +23,7 @@ class CameraManagerNode():
         for name in self.camera_names_list:
             self.camera_publisher_list[name] = rospy.Publisher('camera_' + name + '_topic', Image, queue_size=1)
 
-    def create_service_clients(self):
+    def create_service_servers(self):
         self.camera_service_client_list = {}
         for name in self.camera_names_list:
             self.camera_service_client_list[name] = rospy.Service('camera_' + name + '_service', CreateImage, lambda msg: self.camera_service_handler(msg, name))
@@ -38,6 +38,7 @@ class CameraManagerNode():
         Returns:
             res (CreateImageRes): response containing list of images requested
         """
+
         res = CreateImageResponse()
         image_list = []
 
@@ -49,13 +50,7 @@ class CameraManagerNode():
 
         for i in range(req.image_requests):
             image_list.append(self.bridge.cv2_to_imgmsg(c.read()))
-
-        rospy.loginfo(len(image_list))
-
-
         res.images = image_list
-        rospy.loginfo("7")
-
         return res
 
     def create_all_cameras(self):
