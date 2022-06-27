@@ -1,9 +1,9 @@
 {
     "name": "IMX219",
-    "id": 2,
+    "id": 4,
     "resolution": {
-        "width": 640,
-        "height": 480
+        "width": 3264,
+        "height": 2448
     },
     "output": {
         "width": 1000,
@@ -15,7 +15,7 @@
     },
     "flip": true,
     "format": "MJPG",
-    "fps": 10,
+    "fps": 15,
     "properties":{
         "brightness":{ 
             "randomize": false,

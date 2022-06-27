@@ -16,6 +16,7 @@ class CameraManagerNode():
         
     def get_parameters(self):
         self.camera_names_list = rospy.get_param("/camera_manager_parameters/camera_names")
+        self.top_camera_name = rospy.get_param("/camera_manager_parameters/top_camera_name")
 
     def create_publishers(self):
         # Create a camera publisher for every camera in the id list
@@ -24,9 +25,12 @@ class CameraManagerNode():
             self.camera_publisher_list[name] = rospy.Publisher('camera_' + name + '_topic', Image, queue_size=1)
 
     def create_service_servers(self):
-        self.camera_service_client_list = {}
+        self.camera_service_server_list = {}
+        # Create the service client for the top camera, as it shouldn't be a part of the camera list in the yaml
+        self.camera_service_server_list[self.top_camera_name] = rospy.Service('camera_' + self.top_camera_name + '_service', CreateImage, lambda msg: self.camera_service_handler(msg, self.top_camera_name))
+        # Create the service clients for the rest of the cameras
         for name in self.camera_names_list:
-            self.camera_service_client_list[name] = rospy.Service('camera_' + name + '_service', CreateImage, lambda msg: self.camera_service_handler(msg, name))
+            self.camera_service_server_list[name] = rospy.Service('camera_' + name + '_service', CreateImage, lambda msg: self.camera_service_handler(msg, name))
     
     def camera_service_handler(self, req: CreateImage, name: str):
         """Initializes a camera using the given name, and then returns the requested number of images
@@ -41,10 +45,6 @@ class CameraManagerNode():
 
         res = CreateImageResponse()
         image_list = []
-
-        if name not in self.camera_names_list:
-            rospy.logerr("Camera {} does not exist".format(name))
-            return res
 
         c = camera.Camera(self.get_config_path() + '{}.json'.format(name))
 

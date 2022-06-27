@@ -11,7 +11,7 @@ class Camera():
     def __init__(self, config_path):
         self.config = self.load_config(config_path)
         self.properties = self.config['properties']
-        self.cap = cv2.VideoCapture(self.config['id'])
+        self.cap = cv2.VideoCapture(self.config['id'], cv2.CAP_V4L2)
         self.reset_all()
         self.init_v4l2()
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -56,12 +56,14 @@ class Camera():
         format = self.config['format']
         w = self.config['resolution']['width']
         h = self.config['resolution']['height']
-        # cmd="v4l2-ctl -d {} --set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
+
+        cmd="v4l2-ctl -d {} --set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
+        # input( "Commanding v4l2-ctl -d {} --set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps))
         # cmd="v4l2-ctl -d {} pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
-        
-        cmd="v4l2-ctl --device /dev/video2 --set-fmt-video=width=640,height=480,pixelformat=MJPG"
+    
         # cmd="v4l2-ctl --set-parm={} -d {} ".format(fps, id)
         subprocess.call(cmd, shell=True)
+        # input("Command sent")
 
     def crop_frame(self, img):
         return cv2.resize(img, (self.config['output']['width'], self.config['output']['height']))
@@ -176,7 +178,7 @@ class Camera():
 
 if __name__ == "__main__":
     
-    c = Camera('/home/stephen/manual_data_collector_ws/src/arducam_ros/config/imx219_top.json')
-    cv2.imwrite('image.png', c.read())
+    c = Camera('/home/stephen/manual_data_collector_ws/src/arducam_ros/config/imx298_top.json')
+    cv2.imwrite('/home/stephen/manual_data_collector_ws/images/image.png', c.read())
 
 

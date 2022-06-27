@@ -1,9 +1,9 @@
 {
     "name": "IMX298",
-    "id": 4,
+    "id": 0,
     "resolution": {
-        "width": 640,
-        "height": 480
+        "width": 4656,
+        "height": 3496
     },
     "output": {
         "width": 1000,
