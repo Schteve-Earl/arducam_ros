@@ -58,10 +58,7 @@ class Camera():
         h = self.config['resolution']['height']
 
         cmd="v4l2-ctl -d {} --set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
-        # input( "Commanding v4l2-ctl -d {} --set-fmt-video=width={},height={},pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps))
-        # cmd="v4l2-ctl -d {} pixelformat='{}' --set-parm={} ".format(id,w,h,format,fps)
-    
-        # cmd="v4l2-ctl --set-parm={} -d {} ".format(fps, id)
+
         subprocess.call(cmd, shell=True)
         # input("Command sent")
 

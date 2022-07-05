@@ -1,0 +1,193 @@
+{
+    "name": "IMX219",
+    "id": 6,
+    "resolution": {
+        "width": 3264,
+        "height": 2448
+    },
+    "output": {
+        "width": 1000,
+        "height": 1000
+    },
+    "crop":{
+        "width": 1000,
+        "height": 1000
+    },
+    "flip": true,
+    "format": "MJPG",
+    "fps": 15,
+    "properties":{
+        "brightness":{ 
+            "randomize": false,
+            "v4l2": "0x00980900",
+            "dtype": "int",
+            "min":-64,
+            "max": 64,
+            "default":0,
+            "value":0,
+            "cv2": "CAP_PROP_BRIGHTNESS"
+        },
+        "contrast":{ 
+            "randomize": false,
+            "v4l2": "0x00980901",
+            "dtype": "int",
+            "min":0,
+            "max": 64,
+            "default":32,
+            "value":32,
+            "cv2": "CAP_PROP_CONTRAST"
+        },
+        "saturation":{ 
+            "randomize": false,
+            "v4l2": "0x00980902",
+            "dtype": "int",
+            "min":0,
+            "max": 128,
+            "default":64,
+            "value":64,
+            "cv2": "CAP_PROP_SATURATION"
+        },
+        "hue":{ 
+            "randomize": false,
+            "v4l2": "0x00980903",
+            "dtype": "int",
+            "min":-40,
+            "max": 40,
+            "default":0,
+            "value":0,
+            "cv2": "CAP_PROP_HUE"
+        },
+        "white_balance_temperature_auto":{ 
+            "randomize": false,
+            "v4l2": "0x0098090c",
+            "dtype": "bool",
+            "default":1,
+            "value":1,
+            "cv2": "CAP_PROP_AUTO_WB"
+        },
+        "white_balance_red_component":{ 
+            "randomize": false,
+            "v4l2": "0x0098090e",
+            "dtype": "int",
+            "min":1,
+            "max": 500,
+            "default":100,
+            "value":100,
+            "cv2": "CAP_PROP_WHITE_BALANCE_RED_V"
+        },
+        "white_balance_blue_component":{ 
+            "randomize": false,
+            "v4l2": "0x0098090f",
+            "dtype": "int",
+            "min":1,
+            "max": 500,
+            "default":100,
+            "value":100,
+            "cv2": "CAP_PROP_WHITE_BALANCE_BLUE_U"
+        },
+        "gamma":{ 
+            "randomize": false,
+            "v4l2": "0x00980910",
+            "dtype": "int",
+            "min":72,
+            "max": 500,
+            "default":100,
+            "value":100,
+            "cv2": "CAP_PROP_GAMMA"
+        },
+        "gain":{ 
+            "randomize": false,
+            "v4l2": "0x00980913",
+            "dtype": "int",
+            "min":0,
+            "max": 100,
+            "default":0,
+            "value":0,
+            "cv2": "CAP_PROP_GAIN"
+        },
+        "hue_auto":{ 
+            "randomize": false,
+            "v4l2": "0x00980919",
+            "dtype": "bool",
+            "default":0,
+            "value":0,
+            "cv2": ""
+        },
+        "white_balance_temperature":{ 
+            "randomize": false,
+            "v4l2": "0x0098091a",
+            "dtype": "int",
+            "min":2800,
+            "max": 6500,
+            "default":4600,
+            "value":4600,
+            "cv2": "CAP_PROP_WB_TEMPERATURE"
+        },
+        "sharpness":{ 
+            "randomize": false,
+            "v4l2": "0x0098091b",
+            "dtype": "int",
+            "min":0,
+            "max": 6,
+            "default":3,
+            "value":3,
+            "cv2": "CAP_PROP_SHARPNESS"
+        },
+        "backlight_compensation":{ 
+            "randomize": false,
+            "v4l2": "0x0098091c",
+            "dtype": "int",
+            "min":0,
+            "max": 2,
+            "default":1,
+            "value":1,
+            "cv2": "CAP_PROP_BACKLIGHT"
+        },
+        "exposure_auto":{ 
+            "randomize": false,
+            "v4l2": "0x009a0901",
+            "dtype": "int",
+            "min":0,
+            "max": 3,
+            "default":3,
+            "value":3,
+            "cv2": "CAP_PROP_AUTO_EXPOSURE"
+        },
+        "exposure_absolute":{ 
+            "randomize": false,
+            "v4l2": "0x009a0902",
+            "dtype": "int",
+            "min":1,
+            "max": 5000,
+            "default":157,
+            "value":157,
+            "cv2": "CAP_PROP_EXPOSURE"
+        },
+        "exposure_auto_priority":{ 
+            "randomize": false,
+            "v4l2": "0x009a0903",
+            "dtype": "bool",
+            "default":0,
+            "value":1,
+            "cv2": ""
+        },
+        "focus_absolute":{ 
+            "randomize": false,
+            "v4l2": "0x009a090a",
+            "dtype": "int",
+            "min":1,
+            "max": 1023,
+            "default":1,
+            "value":400,
+            "cv2": "CAP_PROP_FOCUS"
+        },
+        "focus_auto":{ 
+            "randomize": false,
+            "v4l2": "0x009a090c",
+            "dtype": "bool",
+            "default":0,
+            "value":0,
+            "cv2": "CAP_PROP_AUTOFOCUS"
+        }
+    }
+}

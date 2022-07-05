@@ -4,7 +4,7 @@ import rospy
 import camera
 from arducam_ros.srv import CreateImage, CreateImageResponse
 from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
+from cv_bridge import CvBridge, CvBridgeError
 
 class CameraManagerNode():
     def __init__(self):
@@ -12,7 +12,9 @@ class CameraManagerNode():
         
         self.get_parameters()
         self.create_publishers()
-        self.create_service_servers()
+        self.create_all_cameras()
+        self.publish_images()
+        # self.create_service_servers()
         
     def get_parameters(self):
         self.camera_names_list = rospy.get_param("/camera_manager_parameters/camera_names")
@@ -26,9 +28,6 @@ class CameraManagerNode():
 
     def create_service_servers(self):
         self.camera_service_server_list = {}
-        # Create the service client for the top camera, as it shouldn't be a part of the camera list in the yaml
-        self.camera_service_server_list[self.top_camera_name] = rospy.Service('camera_' + self.top_camera_name + '_service', CreateImage, lambda msg: self.camera_service_handler(msg, self.top_camera_name))
-        # Create the service clients for the rest of the cameras
         for name in self.camera_names_list:
             self.camera_service_server_list[name] = rospy.Service('camera_' + name + '_service', CreateImage, lambda msg: self.camera_service_handler(msg, name))
     
@@ -51,6 +50,7 @@ class CameraManagerNode():
         for i in range(req.image_requests):
             image_list.append(self.bridge.cv2_to_imgmsg(c.read()))
         res.images = image_list
+        c.release()
         return res
 
     def create_all_cameras(self):
@@ -66,8 +66,11 @@ class CameraManagerNode():
         while not rospy.is_shutdown():
             for name in self.camera_names_list:
                 cv_image = self.camera_object_list[name].read()
-                msg_image = self.bridge.cv2_to_imgmsg(cv_image)
-                self.camera_publisher_list[name].publish(msg_image)
+                try:
+                    msg_image = self.bridge.cv2_to_imgmsg(cv_image)
+                    self.camera_publisher_list[name].publish(msg_image)
+                except (CvBridgeError, TypeError) as e:
+                    rospy.logerr("{}: {}".format(name, e) )
 
     def get_config_path(self):
         """Creates and returns the path to the config folder of this package
@@ -78,6 +81,8 @@ class CameraManagerNode():
 if __name__ == "__main__":
     rospy.init_node('camera_manager_node', anonymous=True)
     c = CameraManagerNode()
+
+
     rospy.spin()
     
 
