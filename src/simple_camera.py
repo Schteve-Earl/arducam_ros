@@ -105,19 +105,20 @@ if __name__ == "__main__":
     #         if cv2.waitKey(1) & 0xFF == ord('q'):
     #             cv2.imwrite('output.png', frame)
     #             break
-    a = Camera('/home/stephen/manual_data_collector_ws/src/arducam_ros/config/{}.json'.format("imx298_top"))
-    b = Camera('/home/stephen/manual_data_collector_ws/src/arducam_ros/config/{}.json'.format("imx298_side"))
-    c = Camera('/home/stephen/manual_data_collector_ws/src/arducam_ros/config/{}.json'.format("imx219_top"))
+    # a = Camera('/home/ubuntu/manual_data_collector/src/arducam_ros/config/{}.json'.format("imx219_side"))
+    # b = Camera('/home/ubuntu/manual_data_collector/src/arducam_ros/config/{}.json'.format("imx219_top"))
+    # c = Camera('/home/ubuntu/manual_data_collector/src/arducam_ros/config/{}.json'.format("imx298_side"))
+    c = Camera('/home/ubuntu/manual_data_collector/src/arducam_ros/config/{}.json'.format("imx298_top"))
     while(True):
 
     # Capture the video frame
     # by frame
-        reta, framea = a.cap.read()
-        retb, frameb = b.cap.read()
+        # reta, framea = a.cap.read()
+        # retb, frameb = b.cap.read()
         retc, framec = c.cap.read()
 
-        cv2.imshow('framea', cv2.resize(framea, (a.config['output']['width'], a.config['output']['height'])))
-        cv2.imshow('frameb', cv2.resize(frameb, (b.config['output']['width'], b.config['output']['height'])))
+        # cv2.imshow('framea', cv2.resize(framea, (a.config['output']['width'], a.config['output']['height'])))
+        # cv2.imshow('frameb', cv2.resize(frameb, (b.config['output']['width'], b.config['output']['height'])))
         # Display the resulting frame
         cv2.imshow('framec', cv2.resize(framec, (c.config['output']['width'], c.config['output']['height'])))
 
@@ -125,7 +126,7 @@ if __name__ == "__main__":
         # quitting button you may use any
         # desired button of your choice
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            cv2.imwrite('output.png', frame)
+            # cv2.imwrite('output.png', frame)
             break
 
 
